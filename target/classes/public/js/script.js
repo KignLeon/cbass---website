@@ -6,8 +6,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initFormHandling();
+    initScrollLogic();
 });
 
+/* --- Mobile Menu Logic --- */
 function initMobileMenu() {
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -15,14 +17,75 @@ function initMobileMenu() {
     if (!menuButton || !mobileMenu) return;
 
     menuButton.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.toggle('open');
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            // Small timeout to allow display block to apply before opacity transition if we added one
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Icon Toggle
         const icon = menuButton.querySelector('i');
         if (icon) {
-            icon.className = isOpen ? 'fas fa-times text-2xl' : 'fas fa-bars text-2xl';
+            icon.className = isHidden ? 'fas fa-times' : 'fas fa-bars';
         }
+    });
+
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = menuButton.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars';
+        });
     });
 }
 
+/* --- Consultation Modal Logic --- */
+window.toggleModal = function (show) {
+    const modal = document.getElementById('consult-modal');
+    if (!modal) return;
+
+    if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+}
+
+/* --- Header Scroll Effect --- */
+function initScrollLogic() {
+    const header = document.getElementById('main-header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= 0) {
+            header.classList.remove('header-hidden');
+            header.classList.remove('header-visible'); // Transparent at top
+            return;
+        }
+
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            // Scrolling Down
+            header.classList.add('header-hidden');
+            header.classList.remove('header-visible');
+        } else {
+            // Scrolling Up
+            header.classList.remove('header-hidden');
+            header.classList.add('header-visible');
+        }
+        lastScroll = currentScroll;
+    });
+}
+
+/* --- Form Handling (Standard) --- */
 function initFormHandling() {
     const forms = document.querySelectorAll('form');
 
@@ -46,7 +109,6 @@ function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
 
-    // Clear previous errors
     clearErrors(form);
 
     // Validate Phone
@@ -56,25 +118,26 @@ function handleFormSubmit(e) {
         return;
     }
 
-    // Prepare UI for submission
+    // Prepare UI
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerText;
     submitBtn.disabled = true;
     submitBtn.innerText = 'Sending...';
 
-    // Simulate AJAX Request
+    // Simulate AJAX
     setTimeout(() => {
-        // Success functionality
         form.reset();
         submitBtn.innerText = 'Message Sent!';
-
         showSuccessMessage(form);
 
-        // Reset button state after delay
         setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.innerText = originalText;
-        }, 4000);
+            // Optionally close modal on success
+            if (form.id === 'consultationForm') {
+                setTimeout(() => toggleModal(false), 1500);
+            }
+        }, 3000);
     }, 1000);
 }
 
@@ -84,36 +147,27 @@ function isValidPhone(phone) {
 }
 
 function showError(input, message) {
-    // Add red border
-    input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-
-    // Create error message
+    input.classList.add('border-red-500', 'focus:border-red-500');
     const errorDiv = document.createElement('div');
-    errorDiv.className = 'text-red-600 text-sm mt-1 error-msg';
+    errorDiv.className = 'text-red-500 text-xs mt-1 error-msg font-bold';
     errorDiv.innerText = message;
-
     input.parentNode.appendChild(errorDiv);
-    input.focus();
 }
 
 function clearErrors(form) {
     form.querySelectorAll('.error-msg').forEach(el => el.remove());
     form.querySelectorAll('input').forEach(input => {
-        input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+        input.classList.remove('border-red-500', 'focus:border-red-500');
     });
 }
 
 function showSuccessMessage(form) {
-    // Remove existing success messages if any
     const existing = form.querySelector('.success-msg');
     if (existing) existing.remove();
 
     const msg = document.createElement('div');
-    msg.className = 'mt-4 p-4 bg-green-50 text-green-800 border border-green-200 rounded text-center font-medium fade-in success-msg';
-    msg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Request received. We will call you shortly.';
-
+    msg.className = 'mt-4 p-4 bg-green-50 text-green-800 border border-green-200 rounded-xl text-center font-bold animate-fadeIn success-msg';
+    msg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Request received.';
     form.appendChild(msg);
-
-    // Auto-remove after 5s
     setTimeout(() => msg.remove(), 5000);
 }
