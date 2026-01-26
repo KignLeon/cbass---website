@@ -1,13 +1,40 @@
 /**
- * Integrity Electrical - Production Script
- * Handles Mobile Menu, Input Formatting, and AJAX Form Submission
+ * Integrity Electrical - Precision Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initFormHandling();
+    initScrollLogic();
 });
 
+/* --- Smooth Scroll to Hero Form --- */
+window.scrollToForm = function () {
+    const form = document.getElementById('hero-form-card');
+    if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Optional: Focus the first input
+        setTimeout(() => {
+            const firstInput = form.querySelector('input');
+            if (firstInput) firstInput.focus();
+        }, 800);
+    }
+}
+
+/* --- Header Scroll Effect (Transparent -> White) --- */
+function initScrollLogic() {
+    const header = document.getElementById('main-header');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('header-scrolled');
+        } else {
+            header.classList.remove('header-scrolled');
+        }
+    });
+}
+
+/* --- Mobile Menu Logic --- */
 function initMobileMenu() {
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -15,15 +42,34 @@ function initMobileMenu() {
     if (!menuButton || !mobileMenu) return;
 
     menuButton.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.toggle('open');
+        const isHidden = mobileMenu.classList.contains('hidden');
+
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Icon Toggle
         const icon = menuButton.querySelector('i');
         if (icon) {
-            icon.className = isOpen ? 'fas fa-times text-2xl' : 'fas fa-bars text-2xl';
+            icon.className = isHidden ? 'fas fa-times' : 'fas fa-bars';
         }
+    });
+
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            const icon = menuButton.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars';
+        });
     });
 }
 
+/* --- Form Handling (Inline Hero Form) --- */
 function initFormHandling() {
+    // Handle both the hero form any other forms
     const forms = document.querySelectorAll('form');
 
     forms.forEach(form => {
@@ -45,75 +91,33 @@ function formatPhoneNumber(e) {
 function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
+    // Clear previous success messages
+    const existingMsg = form.querySelector('.success-msg');
+    if (existingMsg) existingMsg.remove();
 
-    // Clear previous errors
-    clearErrors(form);
-
-    // Validate Phone
-    const phoneInput = form.querySelector('input[type="tel"]');
-    if (phoneInput && !isValidPhone(phoneInput.value)) {
-        showError(phoneInput, 'Please enter a valid US phone number.');
-        return;
-    }
-
-    // Prepare UI for submission
+    // Prepare UI
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerText;
     submitBtn.disabled = true;
-    submitBtn.innerText = 'Sending...';
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    // Simulate AJAX Request
+    // Simulate AJAX
     setTimeout(() => {
-        // Success functionality
         form.reset();
-        submitBtn.innerText = 'Message Sent!';
+        submitBtn.innerText = 'Consultation Requested!';
 
-        showSuccessMessage(form);
+        // Add inline success message
+        const msg = document.createElement('div');
+        msg.className = 'mt-3 p-3 bg-green-50 text-green-700 text-xs font-bold rounded-lg text-center animate-fadeIn success-msg';
+        msg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Received. We will call you shortly.';
 
-        // Reset button state after delay
+        // Insert after button
+        submitBtn.parentNode.insertBefore(msg, submitBtn.nextSibling);
+
         setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.innerText = originalText;
-        }, 4000);
-    }, 1000);
-}
-
-function isValidPhone(phone) {
-    const phoneRegex = /^(\(\d{3}\)\s|\d{3}[.-]?)?\d{3}[.-]?\d{4}$/;
-    return phoneRegex.test(phone);
-}
-
-function showError(input, message) {
-    // Add red border
-    input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-
-    // Create error message
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'text-red-600 text-sm mt-1 error-msg';
-    errorDiv.innerText = message;
-
-    input.parentNode.appendChild(errorDiv);
-    input.focus();
-}
-
-function clearErrors(form) {
-    form.querySelectorAll('.error-msg').forEach(el => el.remove());
-    form.querySelectorAll('input').forEach(input => {
-        input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-    });
-}
-
-function showSuccessMessage(form) {
-    // Remove existing success messages if any
-    const existing = form.querySelector('.success-msg');
-    if (existing) existing.remove();
-
-    const msg = document.createElement('div');
-    msg.className = 'mt-4 p-4 bg-green-50 text-green-800 border border-green-200 rounded text-center font-medium fade-in success-msg';
-    msg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Request received. We will call you shortly.';
-
-    form.appendChild(msg);
-
-    // Auto-remove after 5s
-    setTimeout(() => msg.remove(), 5000);
+            setTimeout(() => msg.remove(), 5000);
+        }, 3000);
+    }, 1200);
 }
