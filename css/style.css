@@ -21,46 +21,116 @@ html {
 body {
   font-family: var(--font-primary);
   background-color: #f8fafc;
-  /* Light gray base for content contrast */
   color: var(--color-deep-slate);
   -webkit-font-smoothing: antialiased;
 }
 
 /* --- Typography Overrides --- */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
-  /* Extra bold for headlines */
   letter-spacing: -0.025em;
-  /* Tight tracking */
 }
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 252, 219, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(0, 252, 219, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* --- Utility Animations --- */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
 
 /* --- Component: Buttons --- */
 .btn-primary {
-  background-color: var(--color-electric);
+  background: linear-gradient(135deg, var(--color-electric) 0%, #00d4ba 100%);
   color: #0f172a;
-  /* Dark text for contrast */
   font-weight: 700;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px rgba(0, 252, 219, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 252, 219, 0.25);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 252, 219, 0.5);
-  background-color: #5ffeed;
-  /* Lighter electric blue */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 252, 219, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -71,12 +141,32 @@ h6 {
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-secondary:hover {
   border-color: var(--color-electric);
   color: var(--color-electric);
-  background-color: rgba(0, 252, 219, 0.05);
+  background-color: rgba(0, 252, 219, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Light mode secondary button */
+.btn-secondary-light {
+  background-color: transparent;
+  border: 2px solid var(--color-deep-slate);
+  color: var(--color-deep-slate);
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary-light:hover {
+  background-color: var(--color-deep-slate);
+  color: white;
+  transform: translateY(-2px);
 }
 
 /* --- Component: Cards --- */
@@ -88,34 +178,79 @@ h6 {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .card-hover:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
   border-color: var(--color-electric);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Service cards */
+.service-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-electric), #00d4ba);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover::after {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
 }
 
 /* --- Component: Forms --- */
 .form-input {
   width: 100%;
   background-color: #f9fafb;
-  border: 1px solid #d1d5db;
+  border: 2px solid #e5e7eb;
   color: #111827;
-  padding: 0.75rem 1rem;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
+  padding: 0.875rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.25s ease;
   font-weight: 500;
 }
 
-.dark-mode .form-input {
-  background-color: rgba(17, 24, 39, 0.8);
-  border-color: #374151;
-  color: white;
+.form-input::placeholder {
+  color: #9ca3af;
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--color-electric);
-  box-shadow: 0 0 0 3px rgba(0, 252, 219, 0.3);
+  box-shadow: 0 0 0 4px rgba(0, 252, 219, 0.15);
+  background-color: white;
+}
+
+/* Dark mode inputs */
+.form-input.dark-mode {
+  background-color: rgba(17, 24, 39, 0.8);
+  border-color: #374151;
+  color: white;
+}
+
+.form-input.dark-mode::placeholder {
+  color: #6b7280;
+}
+
+.form-input.dark-mode:focus {
+  border-color: var(--color-electric);
+  background-color: rgba(17, 24, 39, 0.95);
 }
 
 /* --- Utilities --- */
@@ -124,43 +259,61 @@ h6 {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, white 0%, #00fcdb 100%);
+  background: linear-gradient(135deg, white 0%, var(--color-electric) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.glow-text {
-  text-shadow: 0 0 20px rgba(0, 252, 219, 0.3);
+.glow-soft {
+  text-shadow: 0 0 30px rgba(0, 252, 219, 0.4);
+}
+
+.glow-box {
+  box-shadow: 0 0 30px rgba(0, 252, 219, 0.2);
+}
+
+/* --- Accent Elements --- */
+.accent-line {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-electric), #00d4ba);
+  border-radius: 2px;
+}
+
+.accent-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-electric);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /* --- Modal Transitions --- */
-.modal-enter {
+#modal-overlay {
+  transition: opacity 0.3s ease;
+}
+
+#modal-overlay.hidden {
   opacity: 0;
-  transform: scale(0.95);
+  pointer-events: none;
 }
 
-.modal-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.modal-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.modal-exit-active {
+.modal-container {
+  transform: scale(0.95) translateY(10px);
   opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#modal-overlay:not(.hidden) .modal-container {
+  transform: scale(1) translateY(0);
+  opacity: 1;
 }
 
 /* --- Mobile Menu --- */
 .mobile-menu-wrapper {
   position: fixed;
   top: 80px;
-  /* Below navbar */
   left: 0;
   right: 0;
   bottom: 0;
@@ -173,4 +326,73 @@ h6 {
 
 .mobile-menu-wrapper.open {
   transform: translateX(0);
+}
+
+/* --- Floating Action Button --- */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  animation: none;
+}
+
+/* --- Scroll Reveal --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Hero Enhancements --- */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-deep-slate) 0%, #1a2332 50%, var(--color-deep-slate) 100%);
+}
+
+/* --- Stats Counter Animation --- */
+.stat-number {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.stat-number:hover {
+  transform: scale(1.1);
+  color: white;
+}
+
+/* --- Link Hover Effects --- */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-electric);
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
 }
