@@ -1,15 +1,26 @@
 /* 
- * Integrity Electrical - Electric Blue / Chrome Design System 
- * Reference: Agency High-Conversion Style
+ * Base Template - Design System
+ * Clean, neutral design tokens for white-label customization
  */
 
 /* --- Variables & Tokens --- */
 :root {
-  --color-electric: #00fcdb;
-  --color-electric-dim: rgba(0, 252, 219, 0.1);
-  --color-deep-slate: #111827;
-  --color-surface: #1f2937;
-  --color-chrome: #e5e7eb;
+  /* Brand Palette - Cbass Electric */
+  --color-electric: #0050C8;
+  /* Electric Blue */
+  --color-electric-dim: rgba(0, 80, 200, 0.1);
+
+  --color-deep-slate: #1e293b;
+  /* Deep Navy/Charcoal */
+  --color-surface: #0f172a;
+  /* Darker Navy */
+  --color-chrome: #f3f4f6;
+  /* Light Gray */
+
+  --color-accent: #fbbf24;
+  /* Warm Amber */
+  --color-accent-dim: rgba(251, 191, 36, 0.1);
+
   --font-primary: 'Inter', sans-serif;
 }
 
@@ -129,13 +140,13 @@ h6 {
 
 /* --- Component: Buttons --- */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-electric) 0%, #00d4ba 100%);
-  color: #0f172a;
+  background: linear-gradient(135deg, var(--color-electric) 0%, #003366 100%);
+  color: #ffffff;
   font-weight: 700;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(0, 252, 219, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 80, 200, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   display: inline-flex;
