@@ -255,12 +255,18 @@
     <footer class="bg-ink text-white py-20 border-t-8 border-highlight">
         <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div>
-                <div class="flex flex-col mb-8">
-                    <span
-                        class="text-4xl font-heading font-bold uppercase tracking-tighter leading-none text-white">CBASS</span>
-                    <span
-                        class="text-sm font-mono text-ink tracking-[0.3em] font-bold bg-white px-1 w-max">ELECTRIC</span>
-                </div>
+                <a href="../" class="flex items-center gap-4 group mb-8">
+                    <div
+                        class="bg-white text-ink p-2 border-2 border-white group-hover:bg-action group-hover:border-white transition-colors">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="text-3xl font-heading font-bold uppercase tracking-tighter leading-none text-white group-hover:text-action transition-colors">CBASS</span>
+                        <span
+                            class="text-sm font-mono text-ink tracking-[0.3em] font-bold bg-highlight px-1">ELECTRIC</span>
+                    </div>
+                </a>
                 <p class="text-white/60 leading-relaxed mb-6 font-medium">
                     Residential and commercial electrical services in Lemon Grove. Built on reliability, communication,
                     and quality workmanship.
@@ -269,12 +275,12 @@
             <div>
                 <h4 class="font-heading font-bold text-highlight text-xl mb-6 uppercase tracking-wider">Services</h4>
                 <ul class="space-y-3 text-white/70 font-medium">
-                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">Main Panel
-                            Upgrades</a></li>
-                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">Lighting &
-                            Fans</a></li>
-                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">EV Charger
-                            Install</a></li>
+                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">Main
+                            Panel Upgrades</a></li>
+                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">Lighting
+                            & Fans</a></li>
+                    <li><a href="./" class="hover:text-action transition-colors hover:pl-2 duration-200">EV
+                            Charger Install</a></li>
                     <li><a href="./"
                             class="hover:text-action transition-colors hover:pl-2 duration-200">Troubleshooting</a></li>
                 </ul>
@@ -307,7 +313,7 @@
                     </li>
                     <li>
                         <a href="tel:6197635578"
-                            class="inline-block mt-4 bg-highlight text-ink px-6 py-3 font-heading font-bold uppercase tracking-wider hover:bg-white transition-colors border-2 border-white">Call
+                            class="inline-block mt-4 bg-highlight text-ink px-6 py-3 font-heading font-bold uppercase tracking-wider hover:bg-white transition-colors border-2 border-white text-center shadow-[4px_4px_0px_0px_#ffffff] hover:translate-y-1 hover:shadow-none">Call
                             Now</a>
                     </li>
                 </ul>
@@ -329,7 +335,7 @@
         <div
             class="modal-container bg-white border-4 border-ink w-full max-w-lg shadow-[8px_8px_0px_0px_#D90429] relative overflow-hidden">
             <button data-close="modal"
-                class="absolute top-4 right-4 text-ink hover:text-action transition-colors border-2 border-ink p-1 hover:bg-highlight">
+                class="absolute top-4 right-4 text-ink hover:text-action transition-colors border-2 border-ink p-1 hover:bg-highlight z-10 w-8 h-8 flex items-center justify-center">
                 <i class="fas fa-times text-xl"></i>
             </button>
             <div class="p-8">
@@ -341,23 +347,47 @@
                 <p class="text-ink/70 text-sm mb-6 font-medium">Fast, accurate, and honest pricing. No obligation.</p>
                 <form class="space-y-4" action="#" method="POST">
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="firstName" placeholder="FIRST NAME" required
-                            class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                        <input type="text" name="lastName" placeholder="LAST NAME" required
-                            class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
+                        <div class="relative">
+                            <label
+                                class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">First
+                                Name</label>
+                            <input type="text" name="firstName" required
+                                class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                        </div>
+                        <div class="relative">
+                            <label
+                                class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Last
+                                Name</label>
+                            <input type="text" name="lastName" required
+                                class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                        </div>
                     </div>
-                    <input type="tel" name="phone" placeholder="PHONE NUMBER" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <input type="email" name="email" placeholder="EMAIL ADDRESS" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <input type="text" name="zipcode" placeholder="ZIP CODE" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <textarea name="message" placeholder="WHAT DO YOU NEED HELP WITH?" rows="3"
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink"></textarea>
-                    <input type="hidden" name="service" value="Service Page Inquiry">
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Phone</label>
+                        <input type="tel" name="phone" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Email</label>
+                        <input type="email" name="email" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Zip
+                            Code</label>
+                        <input type="text" name="zipcode" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <textarea name="message" placeholder="DESCRIBE YOUR PROJECT..." rows="3"
+                        class="w-full bg-white border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink"></textarea>
+                    <input type="hidden" name="service" value="Service Page Modal">
                     <button type="submit"
-                        class="btn-primary w-full text-lg py-4 bg-action text-white font-heading font-bold uppercase border-2 border-ink hover:bg-ink hover:shadow-solid transition-all">Submit
-                        Request</button>
+                        class="btn-primary w-full text-lg py-4 bg-action text-white font-heading font-bold uppercase border-2 border-ink hover:bg-ink hover:shadow-solid transition-all shadow-[4px_4px_0px_0px_#111]">
+                        Submit Request <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                     <p class="text-center text-xs text-ink/40 font-mono">Your information is secure.</p>
                 </form>
             </div>
@@ -379,33 +409,6 @@
             <i class="fas fa-bolt mr-2 text-highlight"></i> Get Started
         </button>
     </div>
-
-    <!-- Script to handle Modals -->
-    <script>
-        // Simple Modal Logic (Replicated from index.html)
-        const modalOverlay = document.getElementById('modal-overlay');
-        const modalTriggers = document.querySelectorAll('[data-trigger="modal"]');
-        const modalClosers = document.querySelectorAll('[data-close="modal"]');
-
-        function openModal() {
-            modalOverlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            modalOverlay.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        modalTriggers.forEach(trigger => trigger.addEventListener('click', openModal));
-        modalClosers.forEach(closer => closer.addEventListener('click', closeModal));
-
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) closeModal();
-        });
-
-        document.getElementById('fab-cta').addEventListener('click', openModal);
-    </script>
 
     <script src="../js/script.js"></script>
 </body>

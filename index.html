@@ -60,16 +60,18 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="bg-gray-50 text-deep">
+<body class="bg-canvas text-ink">
 
-    <!-- Navbar -->
-    <!-- Navbar -->
     <!-- Navbar -->
     <nav class="bg-canvas border-b-2 border-ink fixed w-full z-50">
         <div class="max-w-[1400px] mx-auto px-6 md:px-10">
             <div class="flex justify-between h-24 items-center">
-                <!-- Brand -->
-                <a href="./" class="flex items-center gap-3 group">
+                <!-- Brand: "The Conduit Badge" Concept -->
+                <a href="./" class="flex items-center gap-4 group">
+                    <div
+                        class="bg-ink text-white p-2 border-2 border-ink group-hover:bg-action group-hover:border-ink transition-colors">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
                     <div class="flex flex-col">
                         <span
                             class="text-3xl font-heading font-bold uppercase tracking-tighter leading-none text-ink group-hover:text-action transition-colors">CBASS</span>
@@ -87,9 +89,18 @@
                     <a href="reviews/" class="hover:text-action hover:-translate-y-1 transition-transform">Reviews</a>
                     <a href="contact/" class="hover:text-action hover:-translate-y-1 transition-transform">Contact</a>
 
-                    <a href="tel:6197635578"
-                        class="bg-action text-white px-6 py-3 font-bold uppercase tracking-wider hover:bg-ink hover:shadow-solid transition-all border-2 border-ink">
-                        <i class="fas fa-phone-alt mr-2"></i> (619) 763-5578
+                    <div class="h-8 w-[2px] bg-ink/20"></div>
+
+                    <a href="tel:6197635578" class="flex items-center gap-2 group">
+                        <div class="bg-action text-white p-2 border-2 border-ink group-hover:bg-ink transition-colors">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="flex flex-col leading-none">
+                            <span
+                                class="font-bold font-heading text-xl text-ink group-hover:text-action transition-colors">(619)
+                                763-5578</span>
+                            <span class="text-xs font-mono uppercase text-ink/60">Call Now</span>
+                        </div>
                     </a>
                 </div>
 
@@ -104,125 +115,106 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="mobile-menu-wrapper lg:hidden flex flex-col pt-10 px-6 space-y-6">
-        <a href="./" class="text-2xl font-bold text-electric">Home</a>
+        <a href="./" class="text-2xl font-bold text-action">Home</a>
         <a href="services/" class="text-2xl font-bold text-white">Services</a>
         <a href="about/" class="text-2xl font-bold text-white">About</a>
         <a href="reviews/" class="text-2xl font-bold text-white">Reviews</a>
         <a href="contact/" class="text-2xl font-bold text-white">Contact</a>
-        <a href="tel:6197635578" class="btn-primary w-full text-center mt-8 text-lg">
+        <a href="tel:6197635578"
+            class="btn-primary w-full text-center mt-8 text-lg bg-action text-white font-heading font-bold uppercase border-2 border-ink">
             <i class="fas fa-phone-alt mr-2"></i> Call (619) 763-5578
         </a>
     </div>
 
     <!-- Hero Section -->
-    <header class="relative bg-canvas pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden border-b-2 border-ink">
+    <header class="relative bg-canvas pt-40 pb-16 lg:pt-52 lg:pb-24 overflow-hidden border-b-4 border-ink">
         <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
             <!-- Left Copy -->
-            <div class="z-10">
+            <div class="z-10 relative">
                 <div
-                    class="inline-block bg-highlight border-2 border-ink px-4 py-2 font-mono text-xs font-bold uppercase mb-6 shadow-solid">
-                    <i class="fas fa-bolt mr-2"></i> Lemon Grove's Local Expert
+                    class="inline-block bg-highlight border-2 border-ink px-4 py-2 font-mono text-xs font-bold uppercase mb-6 shadow-solid flex items-center gap-2 w-max">
+                    <i class="fas fa-bolt"></i>
+                    <span>Lemon Grove's Local Expert</span>
                 </div>
-                <h1 class="text-6xl lg:text-8xl mb-8 leading-[0.9] font-heading font-bold text-ink uppercase">
+                <h1 class="text-6xl lg:text-8xl mb-6 leading-[0.9] font-heading font-bold text-ink uppercase">
                     POWERING<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-ink to-ink/80"
                         style="-webkit-text-stroke: 2px #111;">YOUR HOME</span>
                 </h1>
                 <p
-                    class="text-xl text-ink/80 mb-10 max-w-lg leading-relaxed font-medium border-l-4 border-highlight pl-6 bg-structure/30 py-4">
+                    class="text-xl text-ink/80 mb-10 max-w-lg leading-relaxed font-medium pl-6 border-l-4 border-highlight">
                     Residential & Commercial electrical services. <br>
-                    <strong>Reliable. Licensed. No Upselling.</strong>
+                    <span class="bg-ink text-white px-1 font-bold">Reliable.</span> <span
+                        class="bg-ink text-white px-1 font-bold">Licensed.</span> <span
+                        class="bg-ink text-white px-1 font-bold">No Upselling.</span>
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-6">
+                <div class="flex flex-col sm:flex-row gap-4">
                     <a href="tel:6197635578"
-                        class="group bg-action text-white text-xl px-8 py-5 font-heading font-bold uppercase tracking-wider hover:bg-ink hover:shadow-solid transition-all border-2 border-ink text-center">
-                        <span class="group-hover:translate-x-1 inline-block transition-transform">Call (619)
-                            763-5578</span>
+                        class="btn-primary bg-action text-white text-xl px-8 py-4 font-heading font-bold uppercase tracking-wider hover:bg-ink border-2 border-ink text-center shadow-solid hover:translate-y-1 hover:shadow-none transition-all">
+                        Call (619) 763-5578
                     </a>
                     <button data-trigger="modal"
-                        class="group bg-white text-ink text-xl px-8 py-5 font-heading font-bold uppercase tracking-wider hover:bg-highlight hover:shadow-solid transition-all border-2 border-ink text-center">
+                        class="btn-secondary-light bg-white text-ink text-xl px-8 py-4 font-heading font-bold uppercase tracking-wider hover:bg-highlight border-2 border-ink text-center hover:shadow-solid transition-all">
                         Free Estimate
                     </button>
                 </div>
-
-                <!-- Trust Row -->
-                <div class="mt-16 flex flex-wrap gap-8 items-center">
-                    <div
-                        class="flex items-center gap-2 text-sm font-bold text-ink uppercase tracking-wide bg-structure px-3 py-1 border border-ink/20">
-                        <i
-                            class="fas fa-star text-highlight text-lg border border-ink/20 rounded-full p-1 bg-white"></i>
-                        5.0 Rating (42 Reviews)
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-shield-alt text-trust text-xl"></i>
-                        <span class="text-sm font-bold text-ink font-mono uppercase">Licensed & Insured</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-clock text-action text-xl"></i>
-                        <span class="text-sm font-bold text-ink font-mono uppercase">24/7 Availability</span>
-                    </div>
-                </div>
             </div>
 
-            <!-- Right Image -->
-            <div class="relative z-0 lg:h-full min-h-[400px]">
-                <div
-                    class="absolute inset-0 bg-highlight translate-x-4 translate-y-4 border-2 border-ink hidden lg:block">
-                </div>
+            <!-- Right Image (Industrial Frame) -->
+            <div class="relative z-0 h-full min-h-[400px] hidden lg:block">
+                <div class="absolute inset-0 bg-ink translate-x-4 translate-y-4 border-2 border-ink"></div>
                 <div class="relative h-full w-full border-2 border-ink bg-white p-2">
                     <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1600&q=80"
                         class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                         alt="Electrician working">
 
-                    <!-- Floating Badge -->
-                    <div
-                        class="absolute -bottom-6 -left-6 bg-white border-2 border-ink p-4 shadow-solid animate-bounce hidden lg:block">
-                        <div class="text-4xl font-heading font-bold text-ink">15+</div>
-                        <div class="text-xs font-mono uppercase text-ink/60">Years Exp.</div>
+                    <!-- Experience Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-highlight border-2 border-ink p-4 shadow-solid">
+                        <div class="text-5xl font-heading font-bold text-ink leading-none">15+</div>
+                        <div class="text-xs font-mono uppercase text-ink font-bold">Years Exp.</div>
                     </div>
                 </div>
             </div>
 
         </div>
     </header>
-    </div>
-    </div>
-    </div>
-    <span class="text-sm font-bold text-white hidden md:inline">Trust Badge</span>
-    </div>
-    </div>
-    </div>
 
-    <!-- Right Form (Glass Card) -->
-    <div class="hidden lg:block bg-surface/60 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl">
-        <h3 class="text-2xl font-bold text-white mb-2">Request Service</h3>
-        <p class="text-chrome/60 text-sm mb-6">Connect with our team today.</p>
-        <form class="space-y-4" action="#" method="POST">
-            <div class="grid grid-cols-2 gap-4">
-                <input type="text" name="firstName" placeholder="First Name" required class="form-input dark-mode">
-                <input type="text" name="lastName" placeholder="Last Name" required class="form-input dark-mode">
+    <!-- Quick Form Bar: "The Junction Box" -->
+    <section class="relative z-30 -mt-8 px-4 mb-20">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="bg-white border-4 border-ink shadow-[8px_8px_0px_0px_#D90429] p-2 md:p-4">
+                <form action="#" method="POST" class="flex flex-col lg:flex-row gap-4 items-stretch">
+                    <div class="flex-1 flex flex-col md:flex-row gap-4">
+                        <div class="flex-1 relative">
+                            <label
+                                class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-ink uppercase border-2 border-ink">Name</label>
+                            <input type="text" name="name" placeholder="YOUR NAME" required
+                                class="w-full h-14 bg-structure/20 border-2 border-ink px-4 font-mono text-sm font-bold text-ink focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-ink/30">
+                        </div>
+                        <div class="flex-1 relative">
+                            <label
+                                class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-ink uppercase border-2 border-ink">Phone</label>
+                            <input type="tel" name="phone" placeholder="(555) 555-5555" required
+                                class="w-full h-14 bg-structure/20 border-2 border-ink px-4 font-mono text-sm font-bold text-ink focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-ink/30">
+                        </div>
+                        <div class="flex-1 relative">
+                            <label
+                                class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-ink uppercase border-2 border-ink">Email</label>
+                            <input type="email" name="email" placeholder="EMAIL ADDRESS" required
+                                class="w-full h-14 bg-structure/20 border-2 border-ink px-4 font-mono text-sm font-bold text-ink focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-ink/30">
+                        </div>
+                    </div>
+                    <input type="hidden" name="service" value="Quick Form Bar Home">
+                    <button type="submit"
+                        class="bg-action text-white h-14 px-8 font-heading font-bold uppercase tracking-wider text-xl border-2 border-ink hover:bg-ink hover:text-white transition-colors shadow-sm whitespace-nowrap">
+                        GET QUOTE <i class="fas fa-bolt ml-2"></i>
+                    </button>
+                </form>
             </div>
-            <input type="tel" name="phone" placeholder="Phone Number" required class="form-input dark-mode">
-            <input type="email" name="email" placeholder="Email Address" required class="form-input dark-mode">
-            <input type="text" name="zipcode" placeholder="Zip Code" required class="form-input dark-mode">
-            <select name="service" class="custom-select">
-                <option value="" disabled selected>Service Needed?</option>
-                <option value="Service1">Service Option 1</option>
-                <option value="Service2">Service Option 2</option>
-                <option value="Service3">Service Option 3</option>
-                <option value="Other">Other Inquiry</option>
-            </select>
-            <textarea name="message" placeholder="Optional Message" rows="2" class="form-input dark-mode"></textarea>
-            <button type="submit" class="btn-primary w-full">
-                Get Your Free Quote
-            </button>
-            <p class="text-center text-xs text-chrome/40 mt-3">Your information is secure. No spam.</p>
-        </form>
-    </div>
-    </div>
-    </header>
+        </div>
+    </section>
 
     <!-- Services Grid -->
     <section class="py-24 bg-white relative border-b-2 border-ink">
@@ -511,12 +503,18 @@
     <footer class="bg-ink text-white py-20 border-t-8 border-highlight">
         <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div>
-                <div class="flex flex-col mb-8">
-                    <span
-                        class="text-4xl font-heading font-bold uppercase tracking-tighter leading-none text-white">CBASS</span>
-                    <span
-                        class="text-sm font-mono text-ink tracking-[0.3em] font-bold bg-white px-1 w-max">ELECTRIC</span>
-                </div>
+                <a href="./" class="flex items-center gap-4 group mb-8">
+                    <div
+                        class="bg-white text-ink p-2 border-2 border-white group-hover:bg-action group-hover:border-white transition-colors">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="text-3xl font-heading font-bold uppercase tracking-tighter leading-none text-white group-hover:text-action transition-colors">CBASS</span>
+                        <span
+                            class="text-sm font-mono text-ink tracking-[0.3em] font-bold bg-highlight px-1">ELECTRIC</span>
+                    </div>
+                </a>
                 <p class="text-white/60 leading-relaxed mb-6 font-medium">
                     Residential and commercial electrical services in Lemon Grove. Built on reliability, communication,
                     and quality workmanship.
@@ -563,7 +561,7 @@
                     </li>
                     <li>
                         <a href="tel:6197635578"
-                            class="inline-block mt-4 bg-highlight text-ink px-6 py-3 font-heading font-bold uppercase tracking-wider hover:bg-white transition-colors border-2 border-white">Call
+                            class="inline-block mt-4 bg-highlight text-ink px-6 py-3 font-heading font-bold uppercase tracking-wider hover:bg-white transition-colors border-2 border-white text-center shadow-[4px_4px_0px_0px_#ffffff] hover:translate-y-1 hover:shadow-none">Call
                             Now</a>
                     </li>
                 </ul>
@@ -576,6 +574,7 @@
                 <i class="fas fa-shield-alt text-3xl"></i>
                 <i class="fas fa-bolt text-3xl"></i>
             </div>
+        </div>
     </footer>
 
     <!-- Global Layout Modal -->
@@ -584,7 +583,7 @@
         <div
             class="modal-container bg-white border-4 border-ink w-full max-w-lg shadow-[8px_8px_0px_0px_#D90429] relative overflow-hidden">
             <button data-close="modal"
-                class="absolute top-4 right-4 text-ink hover:text-action transition-colors border-2 border-ink p-1 hover:bg-highlight">
+                class="absolute top-4 right-4 text-ink hover:text-action transition-colors border-2 border-ink p-1 hover:bg-highlight z-10 w-8 h-8 flex items-center justify-center">
                 <i class="fas fa-times text-xl"></i>
             </button>
             <div class="p-8">
@@ -596,23 +595,47 @@
                 <p class="text-ink/70 text-sm mb-6 font-medium">Fast, accurate, and honest pricing. No obligation.</p>
                 <form class="space-y-4" action="#" method="POST">
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="firstName" placeholder="FIRST NAME" required
-                            class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                        <input type="text" name="lastName" placeholder="LAST NAME" required
-                            class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
+                        <div class="relative">
+                            <label
+                                class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">First
+                                Name</label>
+                            <input type="text" name="firstName" required
+                                class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                        </div>
+                        <div class="relative">
+                            <label
+                                class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Last
+                                Name</label>
+                            <input type="text" name="lastName" required
+                                class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                        </div>
                     </div>
-                    <input type="tel" name="phone" placeholder="PHONE NUMBER" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <input type="email" name="email" placeholder="EMAIL ADDRESS" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <input type="text" name="zipcode" placeholder="ZIP CODE" required
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink">
-                    <textarea name="message" placeholder="WHAT DO YOU NEED HELP WITH?" rows="3"
-                        class="w-full bg-structure/30 border-2 border-ink p-3 font-mono text-sm focus:border-action focus:outline-none placeholder-ink/40 text-ink"></textarea>
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Phone</label>
+                        <input type="tel" name="phone" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Email</label>
+                        <input type="email" name="email" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <div class="relative">
+                        <label
+                            class="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-ink uppercase border border-ink">Zip
+                            Code</label>
+                        <input type="text" name="zipcode" required
+                            class="w-full bg-white border-2 border-ink p-3 pt-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-transparent text-ink">
+                    </div>
+                    <textarea name="message" placeholder="DESCRIBE YOUR PROJECT..." rows="3"
+                        class="w-full bg-white border-2 border-ink p-3 font-mono text-sm focus:bg-highlight/10 focus:border-action focus:outline-none placeholder-ink/40 text-ink"></textarea>
                     <input type="hidden" name="service" value="Modal Inquiry">
                     <button type="submit"
-                        class="btn-primary w-full text-lg py-4 bg-action text-white font-heading font-bold uppercase border-2 border-ink hover:bg-ink hover:shadow-solid transition-all">Submit
-                        Request</button>
+                        class="btn-primary w-full text-lg py-4 bg-action text-white font-heading font-bold uppercase border-2 border-ink hover:bg-ink hover:shadow-solid transition-all shadow-[4px_4px_0px_0px_#111]">
+                        Submit Request <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                     <p class="text-center text-xs text-ink/40 font-mono">Your information is secure.</p>
                 </form>
             </div>
