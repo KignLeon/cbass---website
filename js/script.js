@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initForms();
     initStats();
     initScrollReveal();
-    initConversionModal();
     initMobileStickyCTA();
 });
 
@@ -74,13 +73,24 @@ function initMobileMenu() {
     }
 }
 
-/* --- Modal System --- */
+/* --- Modal System (Consolidated) --- */
 function initModalSystem() {
     const modal = document.getElementById('modal-overlay');
     const triggers = document.querySelectorAll('[data-trigger="modal"]');
     const closers = document.querySelectorAll('[data-close="modal"]');
+    const fab = document.getElementById('fab-cta');
 
     if (!modal) return;
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
 
     // Button Triggers
     triggers.forEach(btn => {
@@ -89,6 +99,14 @@ function initModalSystem() {
             openModal();
         });
     });
+
+    // FAB Trigger
+    if (fab) {
+        fab.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    }
 
     // Close Triggers
     closers.forEach(btn => {
@@ -106,10 +124,8 @@ function initModalSystem() {
     });
 
     // Exit Intent (Desktop Only)
-    // Triggers when mouse leaves the viewport at the top
     document.addEventListener('mouseleave', (e) => {
         if (e.clientY <= 0) {
-            // Check session storage to avoid spamming
             if (!sessionStorage.getItem('modalShown')) {
                 openModal();
                 sessionStorage.setItem('modalShown', 'true');
@@ -117,199 +133,15 @@ function initModalSystem() {
         }
     });
 
-    function openModal() {
-        modal.classList.remove('hidden');
-        // Small delay to allow display:block to apply before opacity transition
-        requestAnimationFrame(() => {
-            modal.querySelector('.modal-container').classList.remove('modal-enter');
-            modal.querySelector('.modal-container').classList.add('modal-enter-active');
-        });
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        // Reverse animation could go here
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-    }
-}
-
-/* --- Form Handling --- */
-function initForms() {
-    const forms = document.querySelectorAll('form');
-
-    forms.forEach(form => {
-        // Phone Masking
-        const phoneInput = form.querySelector('input[type="tel"]');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', formatPhoneNumber);
-        }
-
-        // Submission Logic
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            handleSubmission(form);
-        });
-    });
-}
-
-function formatPhoneNumber(e) {
-    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? '-' + x[3] : ''}`;
-}
-
-async function handleSubmission(form) {
-    const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn.innerText;
-
-    // Validate
-    const phone = form.querySelector('input[type="tel"]');
-    if (phone && phone.value.length < 14) {
-        alert("Please enter a valid phone number.");
-        phone.classList.add('border-red-500');
-        return;
-    }
-
-    // Lock UI
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Sending...';
-
-    // Prepare Data
-    const formData = new FormData(form);
-
-    // Explicitly add common FormSubmit configurations if not in HTML
-    if (!formData.has('_captcha')) formData.append('_captcha', 'false');
-    if (!formData.has('_subject')) formData.append('_subject', 'New Lead from Website');
-
-    try {
-        const response = await fetch('https://formsubmit.co/{{EMAIL}}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            btn.innerHTML = '<i class="fas fa-check mr-2"></i> Sent!';
-            btn.classList.add('bg-green-500', 'text-white');
-
-            // Show Inline Success
-            const successMsg = document.createElement('div');
-            successMsg.className = 'mt-4 p-4 bg-green-500/10 border border-green-500 rounded text-green-100 text-center font-bold animate-pulse';
-            successMsg.innerHTML = "Thanks! We'll reach out shortly.";
-            form.appendChild(successMsg);
-
-            form.reset();
-
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.innerText = originalText;
-                btn.classList.remove('bg-green-500', 'text-white');
-                if (successMsg.parentNode) successMsg.remove();
-
-                if (form.closest('#modal-overlay')) {
-                    document.getElementById('modal-overlay').classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            }, 4000);
-        } else {
-            throw new Error('Form submission failed');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        btn.disabled = false;
-        btn.innerText = originalText;
-        alert('Something went wrong. Please call us directly.');
-    }
-}
-
-/* --- Scroll Reveal Animation --- */
-function initScrollReveal() {
-    const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
-
-    if (!revealElements.length) return;
-
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-}
-
-/* --- Conversion Modal System --- */
-function initConversionModal() {
-    const overlay = document.getElementById('conversion-modal-overlay');
-    const fab = document.getElementById('fab-cta');
-    const closeBtn = overlay?.querySelector('.conversion-modal-close');
-    const triggers = document.querySelectorAll('[data-trigger="conversion-modal"]');
-
-    if (!overlay) return;
-
-    function openModal() {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // FAB trigger
-    if (fab) {
-        fab.addEventListener('click', openModal);
-    }
-
-    // Close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-
-    // Click outside to close
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal();
-    });
-
-    // Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
-    });
-
-    // Other triggers (mobile sticky CTA, etc.)
-    triggers.forEach(trigger => {
-        trigger.addEventListener('click', openModal);
-    });
-
-    // Delayed auto-open (2.5s) - session-based to avoid spam
-    const isHomepage = window.location.pathname === '/' ||
-        window.location.pathname.endsWith('/index.html') ||
-        window.location.pathname === window.location.pathname.split('/').slice(0, 2).join('/') + '/';
-    const isServicesPage = window.location.pathname.includes('/services');
-
-    if ((isHomepage || isServicesPage) && !sessionStorage.getItem('conversionModalShown')) {
+    // Auto-Open (Aggressive - 5s delay)
+    const isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+    if (isHomepage && !sessionStorage.getItem('autoModalShown')) {
         setTimeout(() => {
-            openModal();
-            sessionStorage.setItem('conversionModalShown', 'true');
-        }, 2500);
-    }
-
-    // Handle form submission inside modal
-    const modalForm = overlay.querySelector('form');
-    if (modalForm) {
-        modalForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            handleSubmission(modalForm);
-            setTimeout(closeModal, 3000);
-        });
+            if (modal.classList.contains('hidden')) {
+                openModal();
+                sessionStorage.setItem('autoModalShown', 'true');
+            }
+        }, 5000);
     }
 }
 
